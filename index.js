@@ -1,26 +1,26 @@
-console.log('Iniciando....')
-var express = require('express')
-var cors = require('cors')
-var morgan = require('morgan');
-var secure = require('ssl-express-www')
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const app = express();
+const port = process.env.PORT || 25581;
+const mainrouter = require('./main.js');
 
-const PORT = process.env.PORT || 8080
-
-var mainrouter = require('./main')
-
-var app = express()
 app.enable('trust proxy');
-app.use(morgan('dev'));
-app.set("json spaces",2)
-app.use(cors())
-app.use(secure)
-app.use(express.static("public"))
+app.set('json spaces', 2);
+app.use(cors());
 
-app.use('/', mainrouter)
 
-app.listen(PORT, () => {
-    console.log('Conectando...')
-    console.log("Servidor rodando em http://localhost:" + PORT)
-})
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
+  next();
+});
 
-module.exports = app
+app.use('/', mainrouter);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://nxf-01.nexfuture.com.br:${port}`);
+});
