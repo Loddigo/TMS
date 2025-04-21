@@ -1,253 +1,215 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Amor</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consultas - IP, CEP e CNPJ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f9f9f9;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    h2 {
+      margin-bottom: 10px;
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-            overflow-x: hidden;
-            position: relative;
-            height: 100vh;
-        }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
 
-        /* Corações Flutuantes */
-        .hearts {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 999;
-            display: none;
-        }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-        .heart {
-            position: absolute;
-            color: red;
-            font-size: 20px;
-            opacity: 0.7;
-            animation: floatUp 5s linear infinite;
-        }
+    button:hover {
+      background-color: #0056b3;
+    }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0); opacity: 0.7; }
-            100% { transform: translateY(-100vh); opacity: 0; }
-        }
+    .box {
+      margin-top: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-        /* Tela Inicial */
-        .container {
-            text-align: center;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .heart-big {
-            font-size: 100px;
-            cursor: pointer;
-            animation: pulse 1.5s infinite alternate;
-            text-shadow: 0 0 20px white, 0 0 40px red;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .heart-big:hover {
-            transform: scale(1.1);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 20px white, 0 0 40px red; }
-            100% { transform: scale(1.2); text-shadow: 0 0 30px white, 0 0 60px red; }
-        }
-
-        .heart-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 36px;
-            color: #e63946;
-            margin-top: 20px;
-            text-shadow: 0 0 10px white, 0 0 20px red;
-        }
-
-        .start-button {
-            display: none;
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            background: #ff4d6d;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.5);
-            transition: 0.3s;
-        }
-
-        .start-button:hover {
-            background: #e63950;
-            transform: scale(1.1);
-        }
-
-        /* Seção de Música */
-        .music-section {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        /* Seção das Fotos */
-        .photos {
-            display: none;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .photo {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(70%);
-        }
-
-        .caption {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 24px;
-            text-align: center;
-            width: 80%;
-            text-shadow: 0 0 10px black, 0 0 20px red;
-        }
-
-        /* Botão 'Aperte' */
-        .love-button {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 77, 109, 0.8);
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 10px 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 20px;
-            transition: 0.3s;
-            z-index: 20;
-        }
-
-        .love-button:hover {
-            background: #e63950;
-            transform: scale(1.1);
-        }
-    </style>
+    .resultado {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Tela Inicial -->
-    <div class="container">
-        <div class="heart-big" onclick="showButton()">💓</div>
-        <div class="heart-text">EMILY E IGO</div>
+  <h2>Consulta de IP</h2>
+  <div class="box">
+    <input type="text" id="ip" placeholder="Digite o IP" />
+    <button onclick="consultarIP()">Consultar IP</button><br/>
+    <input type="text" id="numeroWhatsApp" placeholder="Número do WhatsApp" />
+    <button id="enviarWhatsApp" style="display:none" onclick="enviarWhatsApp('ip')">Enviar por WhatsApp</button>
+    <div id="resultadoIP" class="resultado"></div>
+  </div>
 
-        <!-- Música -->
-        <div class="music-section">
-            <audio id="music" loop>
-                <source src="https://files.catbox.moe/j8fh9u.mp3" type="audio/mp3">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
-        </div>
+  <h2>Consulta de CEP</h2>
+  <div class="box">
+    <input type="text" id="cep" placeholder="Digite o CEP" />
+    <button onclick="consultarCEP()">Consultar CEP</button><br/>
+    <input type="text" id="numeroWhatsAppCEP" placeholder="Número do WhatsApp" />
+    <button id="enviarWhatsAppCEP" style="display:none" onclick="enviarWhatsApp('cep')">Enviar por WhatsApp</button>
+    <div id="resultadoCEP" class="resultado"></div>
+  </div>
 
-        <button class="start-button" onclick="showPhotos()">Clique aqui</button>
-    </div>
+  <h2>Consulta de CNPJ</h2>
+  <div class="box">
+    <input type="text" id="cnpj" placeholder="Digite o CNPJ (somente números)" />
+    <button onclick="consultarCNPJ()">Consultar CNPJ</button><br/>
+    <input type="text" id="numeroWhatsAppCNPJ" placeholder="Número do WhatsApp" />
+    <button id="enviarWhatsAppCNPJ" style="display:none" onclick="enviarWhatsApp('cnpj')">Enviar por WhatsApp</button>
+    <div id="resultadoCNPJ" class="resultado"></div>
+  </div>
 
-    <!-- Seção de Fotos -->
-    <div class="photos">
-        <div class="photo">
-            <img src="https://files.catbox.moe/5lqr88.jpg" alt="Foto 1">
-            <div class="caption">O começo de uma linda história ❤️</div>
-        </div>
-        <div class="photo">
-            <img src="https://i.imgur.com/rZntE3c.jpeg" alt="Foto 2">
-            <div class="caption">Gostei mt dese dia 🫶</div>
-        </div>
-        <div class="photo">
-            <img src="https://files.catbox.moe/guuyu9.jpg" alt="Foto 3">
-            <div class="caption">Uma lembrança inesquecível 💫</div>
-        </div>
-        <div class="photo">
-            <img src="https://files.catbox.moe/0b3h26.jpg" alt="Foto 4">
-            <div class="caption">A melhor coisa é está com vc 🫶</div>
-        </div>
-        <div class="photo">
-            <img src="https://files.catbox.moe/8ooqke.jpg" alt="Foto 5">
-            <div class="caption">Nossa primeira aventura juntos 🤡</div>
-        </div>
-    </div>
+  <script>
+    const resultadoIP = document.getElementById("resultadoIP");
+    const resultadoCEP = document.getElementById("resultadoCEP");
+    const resultadoCNPJ = document.getElementById("resultadoCNPJ");
 
-    <button class="love-button" onclick="window.location.href='carta.html'">Aperte</button>
+    const enviarWhatsApp = (tipo) => {
+      let resultado, numeroWhatsApp;
 
-    <script>
-        function showButton() {
-            document.querySelector('.start-button').style.display = 'block';
-            // Toca a música quando o botão aparecer
-            document.getElementById('music').play();
+      if (tipo === 'ip') {
+        resultado = resultadoIP.textContent;
+        numeroWhatsApp = document.getElementById("numeroWhatsApp").value.trim();
+      } else if (tipo === 'cep') {
+        resultado = resultadoCEP.textContent;
+        numeroWhatsApp = document.getElementById("numeroWhatsAppCEP").value.trim();
+      } else if (tipo === 'cnpj') {
+        resultado = resultadoCNPJ.textContent;
+        numeroWhatsApp = document.getElementById("numeroWhatsAppCNPJ").value.trim();
+      }
+
+      if (!numeroWhatsApp) {
+        alert("Digite um número de WhatsApp válido.");
+        return;
+      }
+
+      const mensagem = encodeURIComponent(`Resultado da Consulta:\n\n${resultado}`);
+      window.open(`https://wa.me/${numeroWhatsApp}?text=${mensagem}`, '_blank');
+    };
+
+    async function consultarIP() {
+      const ip = document.getElementById("ip").value.trim();
+      resultadoIP.textContent = "Consultando...";
+
+      try {
+        const res = await fetch(`https://ipwho.is/${ip}`);
+        const data = await res.json();
+
+        if (data.success) {
+          resultadoIP.textContent = `
+IP: ${data.ip}
+País: ${data.country}
+Região: ${data.region}
+Cidade: ${data.city}
+Latitude: ${data.latitude}
+Longitude: ${data.longitude}
+ISP: ${data.connection?.isp || 'Desconhecido'}
+          `;
+          document.getElementById("enviarWhatsApp").style.display = "inline-block";
+        } else {
+          resultadoIP.textContent = "IP inválido ou não encontrado.";
+          document.getElementById("enviarWhatsApp").style.display = "none";
         }
+      } catch (e) {
+        resultadoIP.textContent = "Erro ao consultar IP.";
+        document.getElementById("enviarWhatsApp").style.display = "none";
+      }
+    }
 
-        function showPhotos() {
-            document.querySelector('.container').style.display = 'none';
-            document.querySelector('.photos').style.display = 'block';
-            document.querySelector('.love-button').style.display = 'block';
-            document.querySelector('.hearts').style.display = 'block'; // Exibe os corações flutuantes
+    async function consultarCEP() {
+      const cep = document.getElementById("cep").value.trim().replace(/\D/g, '');
+      resultadoCEP.textContent = "Consultando...";
+
+      if (!cep || cep.length !== 8) {
+        resultadoCEP.textContent = "Digite um CEP válido com 8 dígitos.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await res.json();
+
+        if (data.erro) {
+          resultadoCEP.textContent = "CEP não encontrado.";
+          document.getElementById("enviarWhatsAppCEP").style.display = "none";
+        } else {
+          resultadoCEP.textContent = `
+CEP: ${data.cep}
+Logradouro: ${data.logradouro}
+Complemento: ${data.complemento}
+Bairro: ${data.bairro}
+Cidade: ${data.localidade}
+Estado: ${data.uf}
+          `;
+          document.getElementById("enviarWhatsAppCEP").style.display = "inline-block";
         }
+      } catch (e) {
+        resultadoCEP.textContent = "Erro ao consultar CEP.";
+        document.getElementById("enviarWhatsAppCEP").style.display = "none";
+      }
+    }
 
-        // Corações flutuantes
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "💓";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
-            document.querySelector(".hearts").appendChild(heart);
+    async function consultarCNPJ() {
+      const cnpj = document.getElementById("cnpj").value.trim().replace(/\D/g, '');
+      resultadoCNPJ.textContent = "Consultando...";
 
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+      if (!cnpj || cnpj.length !== 14) {
+        resultadoCNPJ.textContent = "Digite um CNPJ válido com 14 números.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`https://publica.cnpj.ws/cnpj/${cnpj}`);
+        const data = await res.json();
+
+        if (data.status === "ERROR") {
+          resultadoCNPJ.textContent = "CNPJ não encontrado ou inválido.";
+          document.getElementById("enviarWhatsAppCNPJ").style.display = "none";
+        } else {
+          resultadoCNPJ.textContent = `
+Razão Social: ${data.razao_social}
+Nome Fantasia: ${data.estabelecimento.nome_fantasia || 'Não informado'}
+CNPJ: ${data.cnpj}
+Situação Cadastral: ${data.estabelecimento.situacao_cadastral}
+Tipo: ${data.tipo}
+Abertura: ${data.estabelecimento.data_inicio_atividade}
+Natureza Jurídica: ${data.natureza_juridica.descricao}
+Logradouro: ${data.estabelecimento.logradouro}, ${data.estabelecimento.numero} - ${data.estabelecimento.bairro}
+Município: ${data.estabelecimento.cidade.nome} - ${data.estabelecimento.estado.sigla}
+CEP: ${data.estabelecimento.cep}
+Telefone: ${data.estabelecimento.ddd1} ${data.estabelecimento.telefone1 || ''}
+Email: ${data.estabelecimento.email || 'Não informado'}
+          `;
+          document.getElementById("enviarWhatsAppCNPJ").style.display = "inline-block";
         }
-
-        setInterval(createHeart, 500);
-    </script>
+      } catch (e) {
+        resultadoCNPJ.textContent = "Erro ao consultar CNPJ.";
+        document.getElementById("enviarWhatsAppCNPJ").style.display = "none";
+      }
+    }
+  </script>
 
 </body>
 </html>
